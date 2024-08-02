@@ -8,7 +8,7 @@ data class Author(
     @Id @Column(name = "id") @GeneratedValue(
         strategy = GenerationType.SEQUENCE,
         generator = "author_id_seq"
-    ) val id: String,
+    ) val id: Long?,
 
     @Column(name = "name") val name: String
 )

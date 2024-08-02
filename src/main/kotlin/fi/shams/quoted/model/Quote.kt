@@ -9,7 +9,7 @@ data class Quote(
         strategy = GenerationType.SEQUENCE,
         generator = "quote_id_seq"
     )
-    val id: String,
+    val id: Long?,
 
     @Column(name = "quote") val quote: String,
 
