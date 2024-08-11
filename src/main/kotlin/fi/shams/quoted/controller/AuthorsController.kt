@@ -4,7 +4,9 @@ import fi.shams.quoted.model.dto.AuthorDto
 import fi.shams.quoted.service.AuthorService
 import fi.shams.quoted.toAuthorDto
 import fi.shams.quoted.toAuthorEntity
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -22,6 +24,11 @@ class AuthorsController (private val authorService: AuthorService) {
     @GetMapping
     fun getAuthors(): List<AuthorDto> {
         return authorService.getAuthors().map { it.toAuthorDto() }
+    }
+
+    @GetMapping(path =["/{id}"])
+    fun getAuthor(@PathVariable("id") id: Long): ResponseEntity<AuthorDto> {
+        return authorService.getAuthorById(id)?.let { ResponseEntity.ok(it.toAuthorDto()) } ?: ResponseEntity.notFound().build()
     }
 
 

@@ -7,4 +7,5 @@ interface AuthorService {
     fun createAuthor(author: AuthorEntity): AuthorEntity
     fun updateAuthor(id: Long, author: AuthorEntity): AuthorEntity
     fun deleteAuthor(id: Long)
+    fun getAuthorById(id: Long): AuthorEntity?
 }
