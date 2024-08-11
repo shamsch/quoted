@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 @Service
 class AuthorServiceImpl(private val authorRepository: AuthorRepository): AuthorService {
     override fun getAuthors(): List<AuthorEntity> {
-        TODO("Not yet implemented")
+        return authorRepository.findAll()
     }
 
     override fun createAuthor(author: AuthorEntity): AuthorEntity {

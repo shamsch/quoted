@@ -4,15 +4,25 @@ import fi.shams.quoted.model.dto.AuthorDto
 import fi.shams.quoted.service.AuthorService
 import fi.shams.quoted.toAuthorDto
 import fi.shams.quoted.toAuthorEntity
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@RestController
+@RestController()
+@RequestMapping(path = ["/v1/authors"])
 class AuthorsController (private val authorService: AuthorService) {
 
-    @PostMapping("/authors")
+    @PostMapping
     fun createAuthor(@RequestBody authorDto: AuthorDto): AuthorDto {
         return authorService.createAuthor(authorDto.toAuthorEntity()).toAuthorDto()
     }
+
+    @GetMapping
+    fun getAuthors(): List<AuthorDto> {
+        return authorService.getAuthors().map { it.toAuthorDto() }
+    }
+
+
 }
