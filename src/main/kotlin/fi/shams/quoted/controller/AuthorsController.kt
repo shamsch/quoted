@@ -4,6 +4,7 @@ import fi.shams.quoted.model.dto.AuthorDto
 import fi.shams.quoted.service.AuthorService
 import fi.shams.quoted.toAuthorDto
 import fi.shams.quoted.toAuthorEntity
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -17,8 +18,13 @@ import org.springframework.web.bind.annotation.RestController
 class AuthorsController (private val authorService: AuthorService) {
 
     @PostMapping
-    fun createAuthor(@RequestBody authorDto: AuthorDto): AuthorDto {
-        return authorService.createAuthor(authorDto.toAuthorEntity()).toAuthorDto()
+    fun createAuthor(@RequestBody authorDto: AuthorDto): ResponseEntity<AuthorDto> {
+        try {
+            val res = authorService.createAuthor(authorDto.toAuthorEntity()).toAuthorDto()
+            return ResponseEntity(res, HttpStatus.CREATED)
+        } catch (e: Exception) {
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
     }
 
     @GetMapping
